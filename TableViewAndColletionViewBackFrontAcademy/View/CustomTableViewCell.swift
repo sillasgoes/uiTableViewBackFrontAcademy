@@ -21,4 +21,7 @@ class CustomTableViewCell: UITableViewCell {
         super.awakeFromNib()
     }
     
+    func setupCell(title: String) {
+        titleLabel.text = title
+    }
 }

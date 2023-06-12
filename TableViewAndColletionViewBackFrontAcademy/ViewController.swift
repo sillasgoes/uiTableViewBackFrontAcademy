@@ -9,11 +9,14 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    lazy var infoTableView: UITableView = {
-        var view = UITableView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
+    var nomes: [String] = ["Sillas", "Roberto", "Wallace", "William", "Ricardo"]
+
+   lazy var infoTableView: UITableView = {
+      var view = UITableView()
+    view.translatesAutoresizingMaskIntoConstraints = false
+       return view
     }()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +33,8 @@ class ViewController: UIViewController {
         infoTableView.delegate = self
         infoTableView.dataSource = self
         infoTableView.register(CustomTableViewCell.nib(), forCellReuseIdentifier: CustomTableViewCell.identifier)
+        
+        infoTableView.translatesAutoresizingMaskIntoConstraints = false
     }
     
     func configConstraints() {
@@ -46,15 +51,15 @@ class ViewController: UIViewController {
 
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        4
+        return nomes.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = infoTableView.dequeueReusableCell(withIdentifier: CustomTableViewCell.identifier,
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: CustomTableViewCell.identifier,
                                                      for: indexPath) as? CustomTableViewCell
+        
+        cell?.setupCell(title: nomes[indexPath.row])
         return cell ?? UITableViewCell()
     }
 }
-
-#Preview("ViewController") {
-    ViewController() }
